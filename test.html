@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <script type="text/javascript" src="layer/jquery-1.11.3.min.js"></script>
+
+
+    <script type="text/javascript" src="layer/layer.js"></script>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>测试</title>
+    <script type="text/javascript">
+
+        $(function(){
+            $("#addSpecialNo").click(function(){
+                /*
+                 layer.config({
+                 skin: 'demo-class'
+                 });
+                 */
+
+                layer.open({
+                    type: 1,
+                    area: ['600px', '400px'],    //宽和高
+                    skin: 'layui-layer-lan',     //加上边框：layui-layer-rim；深蓝：layui-layer-lan；墨绿：layui-layer-molv
+                    offset: ['60px', '240px'],  //屏幕坐标位置
+                    shadeClose: true, //点击遮罩关闭
+                    closeBtn: 1,     //0:不显示关闭按钮; 1:显示关闭按钮
+                    content: $("#showbox"),
+                    btn: ['确认','取消'],    //按钮1和按钮2的回调分别是yes和cancel，而从按钮3开始，则回调为btn3: function(){}，以此类推
+                    yes: function(index,layero){
+                        var showtab = document.getElementById("showtab");
+                        var n = 0;
+                        var specialNo='';
+                        $("input[name='chk']:checked").each(
+                            function() { // 遍历选中的checkbox
+                                n = $(this).parents("tr").index(); // 获取checkbox所在行的顺序
+                                if(specialNo==''){
+                                    specialNo = showtab.rows[n].cells[2].innerHTML;
+                                }else{
+                                    specialNo = specialNo +','+ showtab.rows[n].cells[2].innerHTML;
+                                }
+                            });
+                        alert('确认测试'+':所选专用号:' + specialNo);
+                        $("#involveSpecialNo").attr("value",specialNo);
+                        layer.close(index);
+                        //按钮【确认】的回调
+                    },
+                    cancel: function(index){
+                        //按钮【取消】的回调
+                        alert('取消测试');
+                    }
+
+                });
+
+            });
+        });
+    </script>
+
+    <style>
+        #showbox{width:520px; height:300px; background: #ffffff; display:none;}
+    </style>
+
+</head>
+
+<body>
+<div id="showbox" style="padding:20px;">涉及专用号
+    <table id="showtab" class="showtab">
+        <tr style="height:45px;"> <td style="width:50px;"><input type="checkbox" name="chk"></input></td> <td style="width:50px;">1</td> <td style="width:100px;">XYZW125678</td></tr>
+        <tr style="height:45px;"> <td style="width:50px;"><input type="checkbox" name="chk"></input></td> <td style="width:50px;">2</td> <td style="width:100px;">XYZW225678</td></tr>
+        <tr style="height:45px;"> <td style="width:50px;"><input type="checkbox" name="chk"></input></td> <td style="width:50px;">3</td> <td style="width:100px;">XYZW325678</td></tr>
+    </table>
+</div>
+<div>
+    <table>
+        <tr style="height:45px;">
+            <td colspan="2" style="text-align:center;vertical-align:middle;">
+                <label  style="color:#086ebf;align：center;"><Strong>涉及专用号:</Strong></label>
+            </td>
+            <td colspan="3" >
+                <input id="involveSpecialNo" style="height:65%; width:360px; background-color:#e4e4e4;border-style:solid;border-color:#B0B0B0;border-width:thin;" type="text" value = "" readonly="readonly" />
+            </td>
+            <td colspan="1" >
+                <input id="addSpecialNo" class="addSpecialNo" type="button" value="添加" style="height:60%;" />
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>  
